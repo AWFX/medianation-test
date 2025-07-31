@@ -1,9 +1,8 @@
 import logging
-import os
 
+
+# Uvicorn access and error logs
 def setup_loggers():
-    os.makedirs("logs", exist_ok=True)
-    
     uvicorn_handler = logging.FileHandler("logs/app.log")
     uvicorn_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
 

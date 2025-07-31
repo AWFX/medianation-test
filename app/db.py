@@ -12,6 +12,7 @@ class Data:
         )
         self.ensure_table()
 
+    # Ensure the posts table exists
     def ensure_table(self):
         with self.conn.cursor() as cur:
             cur.execute("""
@@ -23,6 +24,7 @@ class Data:
             """)
             self.conn.commit()
 
+    # Methods to interact with the posts table
     def get_posts(self):
         with self.conn.cursor() as cur:
             cur.execute("SELECT id, title, content FROM posts;")
@@ -30,7 +32,8 @@ class Data:
             if not rows:
                 return {"message": "No posts found"}
             return [{"id": x[0], "title": x[1], "content": x[2]} for x in rows]
-
+    
+    # Create a new post
     def create_post(self, title, content):
         with self.conn.cursor() as cur:
             cur.execute(
@@ -41,6 +44,7 @@ class Data:
             self.conn.commit()
             return {"id": row[0], "title": row[1], "content": row[2]}
 
+    # Close the database connection
     def close(self):
         self.conn.close()
 

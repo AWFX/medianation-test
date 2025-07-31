@@ -18,9 +18,9 @@ curl -X POST http://localhost:8080/posts -H "Content-Type: application/json" -d 
 
 ```bash
 curl http://localhost:8080/health
-{"message":"API is runnning"}%
+{"message":"API is runnning"}
 ```
-### **Технологии**
+## **Технологии**
 
 - Docker / Docker Compose
 - PostgreSQL
@@ -31,7 +31,7 @@ curl http://localhost:8080/health
 - 2 cores
 - OS: Almalinux 9
 
-### Сборка проект локально.
+## Сборка проект локально.
 
 Необходимо прописать переменные в файле .env для работы с БД.
 

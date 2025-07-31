@@ -23,7 +23,6 @@ jobs:
             --include='docker-compose.yml' \
             --include='Dockerfile' \
             --include='requirements.txt' \
-            --include='.env' \
             --include='app/***' \
             --exclude='*' \
             --exclude='.env' \

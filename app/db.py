@@ -1,8 +1,5 @@
 import os
-from dotenv import load_dotenv
 import psycopg2
-
-load_dotenv()
 
 class Data:
     def __init__(self):

@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import RedirectResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 from db import Data
 from model import Post
 from logger import setup_loggers
@@ -8,6 +11,14 @@ from logger import setup_loggers
 app = FastAPI()
 db = Data()
 setup_loggers()
+
+
+# Redirects 404 errors to the documentation page
+@app.exception_handler(StarletteHTTPException)
+def redirect_404_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        return RedirectResponse(url="/docs")
+    return exc
 
 
 # Handles HTTP GET requests to the posts endpoint

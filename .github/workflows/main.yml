@@ -37,5 +37,20 @@ jobs:
             cd /var/app && \
             docker compose down && \
             docker compose up -d --build && \
-            docker image prune -f
-          "
+            docker image prune -f "
+
+      - name: Smoke test API with retries
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            MAX_RETRIES=12
+            COUNT=0
+            until curl -sf http://localhost:8080/health; do                COUNT=$((COUNT+1))
+              if [ $COUNT -ge $MAX_RETRIES ]; then
+                echo "Smoke test failed: API did not respond in time"
+                exit 1
+              fi
+              echo "Waiting for API to be ready... ($COUNT/$MAX_RETRIES)"
+              sleep 5
+            done
+            echo "Smoke test passed"
+          EOF

@@ -13,12 +13,10 @@ db = Data()
 setup_loggers()
 
 
-# Redirects 404 errors to the documentation page
-@app.exception_handler(StarletteHTTPException)
-def redirect_404_handler(request: Request, exc: StarletteHTTPException):
-    if exc.status_code == 404:
-        return RedirectResponse(url="/docs")
-    return exc
+# Handles HTTP GET requests to the health endpoint
+@app.get("/health")
+def check_status():
+    return {"message": "API is runnning"}
 
 
 # Handles HTTP GET requests to the posts endpoint
@@ -31,3 +29,11 @@ def get_posts():
 @app.post("/posts")
 def create_post(post: Post):
     return db.create_post(post.title, post.content)
+
+
+# Redirects 404 errors to the documentation page
+@app.exception_handler(StarletteHTTPException)
+def redirect_404_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        return RedirectResponse(url="/docs")
+    return exc

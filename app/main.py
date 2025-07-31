@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from db import Data
-from model import Post
+#from model import Post
 from logger import setup_loggers
 
 

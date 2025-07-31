@@ -1,5 +1,4 @@
 import logging
-import os
 
 def setup_loggers():
     uvicorn_handler = logging.FileHandler("logs/app.log")

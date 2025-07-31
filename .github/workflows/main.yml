@@ -20,7 +20,7 @@ jobs:
       - name: Copy selected files via rsync
         run: |
           rsync -avz --delete \
-            --exclude='.git' \
+            --exclude='.git*' \
             --include='docker-compose.yml' \
             --include='Dockerfile' \
             --include='requirements.txt' \

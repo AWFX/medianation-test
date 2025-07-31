@@ -1,20 +1,11 @@
 from fastapi import FastAPI
 from db import Data
-from pydantic import BaseModel
+from model import Post
 from logger import setup_loggers
 
 app = FastAPI()
 db = Data()
 setup_loggers()
-
-class Post(BaseModel):
-    title: str
-    content: str
-
-# Handles GET requests to the root endpoint
-@app.get("/")
-def read_root():
-    return {"message": "API is running"}
 
 # Handles HTTP GET requests to the posts endpoint
 @app.get("/posts")

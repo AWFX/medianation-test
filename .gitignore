@@ -1,5 +1,8 @@
+# Ignore directories
 .venv/
-.env
-app/__pycache__
 logs/
-app/logs
+app/__pycache__/
+
+# Ignore files
+.env
+

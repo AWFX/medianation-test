@@ -26,6 +26,7 @@ jobs:
             --include='.env' \
             --include='app/***' \
             --exclude='*' \
+            --exclude='.env' \
             -e "ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no" \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/app/
 

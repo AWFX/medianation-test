@@ -1,0 +1,40 @@
+name: deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Copy selected files via rsync
+        run: |
+          rsync -avz --delete \
+            --include='docker-compose.yml' \
+            --include='Dockerfile' \
+            --include='requirements.txt' \
+            --include='.env' \
+            --include='app/***' \
+            --exclude='*' \
+            -e "ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/app/
+
+
+      - name: Restart app with Docker Compose
+        run: |
+          ssh -p ${{ secrets.SSH_PORT }} -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd /var/app && \
+            docker compose down && \
+            docker compose up -d --build && \
+            docker image prune -f
+          "

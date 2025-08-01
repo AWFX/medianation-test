@@ -33,7 +33,7 @@ curl http://localhost:8080/health
 
 ## Сборка проект локально.
 
-Необходимо прописать переменные в файле .env для работы с БД.
+Переменные для работы с БД находятся в файле .env.
 
 ```bash
 git clone https://github.com/AWFX/medianation-test.git

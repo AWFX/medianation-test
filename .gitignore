@@ -3,6 +3,3 @@
 logs/
 app/__pycache__/
 
-# Ignore files
-.env
-

@@ -39,12 +39,6 @@ curl http://localhost:8080/health
 git clone https://github.com/AWFX/medianation-test.git
 cd medianation-test
 
-echo 'POSTGRES_USER=postgres\n'\
-'POSTGRES_PASSWORD=1234\n'\
-'POSTGRES_DB=posts\n'\
-'POSTGRES_PORT=5432'\
->> .env
-
 sudo docker-compose up -d                                                                
 ```
 

@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:17
     container_name: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -16,7 +16,7 @@ services:
   app:
     build: .
     container_name: app
-    restart: always
+    restart: unless-stoped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
